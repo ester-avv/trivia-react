@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchToken } from '../Redux/actions';
 
 class Login extends Component {
   state = {
@@ -22,6 +23,18 @@ class Login extends Component {
     return !TRUE_FALSE;
   };
 
+  fetchAPI = async () => {
+    const { history, dispatch } = this.props;
+    const url = "https://opentdb.com/api_token.php?command=request";
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    dispatch(fetchToken(data));
+    localStorage.setItem('token', data.token);
+    history.push("/game")
+    
+  }
+
   render() {
     return (
       <form onChange={ this.handleChange }>
@@ -41,6 +54,7 @@ class Login extends Component {
           disabled={ this.validaBotao() }
           type="button"
           data-testid="btn-play"
+          onClick={this.fetchAPI}
         >
           Play
         </button>
