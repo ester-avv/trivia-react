@@ -34,8 +34,10 @@ class Login extends Component {
     history.push("/game")
     
   }
+   
 
   render() {
+    const { history } = this.props
     return (
       <form onChange={ this.handleChange }>
         <input
@@ -57,6 +59,12 @@ class Login extends Component {
           onClick={this.fetchAPI}
         >
           Play
+        </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={() => history.push('/configuracoes')}>
+            Configurações
         </button>
       </form>
     );
