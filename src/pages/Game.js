@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Header from '../Components/Header';
 
 export default class Game extends Component {
 /*   fetchQuestions = async () => {
@@ -11,7 +12,9 @@ export default class Game extends Component {
 
   render() {
     return (
-      <div>Game</div>
+      <div>
+        <Header />
+      </div>
     );
   }
 }

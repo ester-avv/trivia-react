@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import md5 from 'crypto-js/md5';
+import PropTypes from 'prop-types';
 import { fetchToken } from '../Redux/actions';
 
 class Login extends Component {
@@ -25,19 +27,21 @@ class Login extends Component {
 
   fetchAPI = async () => {
     const { history, dispatch } = this.props;
-    const url = "https://opentdb.com/api_token.php?command=request";
+    const { name, email } = this.state;
+    const hash = md5(email).toString();
+    console.log(hash);
+    const urlGravatar = `https://www.gravatar.com/avatar/${hash}`;
+    const url = 'https://opentdb.com/api_token.php?command=request';
     const response = await fetch(url);
     const data = await response.json();
-    
-    dispatch(fetchToken(data));
+
+    dispatch(fetchToken({ name, email, data, urlGravatar }));
     localStorage.setItem('token', data.token);
-    history.push("/game")
-    
-  }
-   
+    history.push('/game');
+  };
 
   render() {
-    const { history } = this.props
+    const { history } = this.props;
     return (
       <form onChange={ this.handleChange }>
         <input
@@ -56,19 +60,25 @@ class Login extends Component {
           disabled={ this.validaBotao() }
           type="button"
           data-testid="btn-play"
-          onClick={this.fetchAPI}
+          onClick={ this.fetchAPI }
         >
           Play
         </button>
         <button
           type="button"
           data-testid="btn-settings"
-          onClick={() => history.push('/configuracoes')}>
-            Configurações
+          onClick={ () => history.push('/configuracoes') }
+        >
+          Configurações
         </button>
       </form>
     );
   }
 }
+
+Login.propTypes = ({
+  history: PropTypes.shape.isRequired,
+  dispatch: PropTypes.func.isRequired,
+});
 
 export default connect()(Login);
