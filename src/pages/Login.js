@@ -29,12 +29,10 @@ class Login extends Component {
     const { history, dispatch } = this.props;
     const { name, email } = this.state;
     const hash = md5(email).toString();
-    console.log(hash);
     const urlGravatar = `https://www.gravatar.com/avatar/${hash}`;
     const url = 'https://opentdb.com/api_token.php?command=request';
     const response = await fetch(url);
     const data = await response.json();
-
     dispatch(fetchToken({ name, email, data, urlGravatar }));
     localStorage.setItem('token', data.token);
     history.push('/game');
