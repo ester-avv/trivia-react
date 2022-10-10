@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   name: '',
   email: '',
   urlGravatar: '',
+  placar: 0,
 };
 
 function dataReducer(state = INITIAL_STATE, action) {
