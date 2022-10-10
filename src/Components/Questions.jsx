@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 class Questions extends Component {
@@ -13,15 +14,13 @@ class Questions extends Component {
   }
 
   fetchQuestions = async () => {
-    const { data, history } = this.props;
-    try {
-      const urlToken = `https://opentdb.com/api.php?amount=5&token=${data.token}`;
-      const responseToken = await fetch(urlToken);
-      const dataToken = await responseToken.json();
-      this.setState({ questions: dataToken.results });
-    } catch (error) {
-      localStorage.removeItem('token');
-      history.push('/');
+    const { data } = this.props;
+    const urlToken = `https://opentdb.com/api.php?amount=5&token=${data.token}`;
+    const responseToken = await fetch(urlToken);
+    const dataToken = await responseToken.json();
+    this.setState({ questions: dataToken.results });
+    if (dataToken.results.length === 0) {
+      window.location = '/';
     }
   };
 
@@ -31,7 +30,8 @@ class Questions extends Component {
       ...questions[index].incorrect_answers,
       questions[index].correct_answer,
     ];
-    console.log(resp);
+    const magicNumber = 0.5;
+    console.log(this.props);
     return (
       <div>
         {questions.length !== 0 && (
@@ -49,7 +49,7 @@ class Questions extends Component {
                       .correct_answer ? 'correct-answer'
                       : `wrong-answer-${indexAns}`
                   }
-                />)).sort(() => Math.random() - 0.5)}
+                />)).sort(() => Math.random() - magicNumber)}
             </div>
           </div>
         )}
@@ -59,6 +59,10 @@ class Questions extends Component {
 }
 const mapStateToProps = (state) => ({
   data: state.dataReducer.data,
+});
+
+Questions.propTypes = ({
+  data: PropTypes.shape.isRequired,
 });
 
 export default connect(mapStateToProps)(Questions);
