@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 class Questions extends Component {
@@ -29,6 +30,7 @@ class Questions extends Component {
       ...questions[index].incorrect_answers,
       questions[index].correct_answer,
     ];
+    const magicNumber = 0.5;
     console.log(this.props);
     return (
       <div>
@@ -47,7 +49,7 @@ class Questions extends Component {
                       .correct_answer ? 'correct-answer'
                       : `wrong-answer-${indexAns}`
                   }
-                />)).sort(() => Math.random() - 0.5)}
+                />)).sort(() => Math.random() - magicNumber)}
             </div>
           </div>
         )}
@@ -57,6 +59,10 @@ class Questions extends Component {
 }
 const mapStateToProps = (state) => ({
   data: state.dataReducer.data,
+});
+
+Questions.propTypes = ({
+  data: PropTypes.shape.isRequired,
 });
 
 export default connect(mapStateToProps)(Questions);
