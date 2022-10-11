@@ -8,11 +8,39 @@ class Questions extends Component {
   state = {
     questions: [],
     index: 0,
+    placar: 0,
+    isDisabled: false,
   };
 
   async componentDidMount() {
     await this.fetchQuestions();
   }
+
+  addPlacar = (target) => {
+    const { questions, index } = this.state;
+    const { timer } = this.props;
+    let dificuldade;
+    const one = 1;
+    const two = 2;
+    const three = 3;
+
+    if (questions[index].difficulty === 'easy') {
+      dificuldade = one;
+    } else if (questions[index].difficulty === 'medium') {
+      dificuldade = two;
+    } else {
+      dificuldade = three;
+    }
+
+    const testId = target.getAttribute('data-testid');
+    const CORRECT = 'correct-answer';
+    const ten = 10;
+    if (testId === CORRECT) {
+      this.setState((prevState) => ({
+        placar: prevState.placar + (ten + (timer * dificuldade)),
+      }));
+    }
+  };
 
   changeStyleOptions = ({ target }) => {
     const testId = target.parentElement.childNodes;
@@ -24,6 +52,7 @@ class Questions extends Component {
         element.style.border = '3px solid red';
       }
     });
+    this.addPlacar(target);
   };
 
   fetchQuestions = async () => {
@@ -45,7 +74,6 @@ class Questions extends Component {
       questions[index].correct_answer,
     ];
     const magicNumber = 0.5;
-    console.log(this.props);
     return (
       <div>
         {questions.length !== 0 && (
