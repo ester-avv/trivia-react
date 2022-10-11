@@ -3,7 +3,6 @@ const GET_TIMER = 'GET_TIMER';
 const GET_SCORE = 'GET_SCORE';
 const SET_TIMER = 'SET_TIMER';
 
-
 const fetchToken = (payload) => ({
   type: GET_TOKEN,
   payload,
