@@ -1,6 +1,8 @@
 const GET_TOKEN = 'GET_TOKEN';
 const GET_TIMER = 'GET_TIMER';
 const GET_SCORE = 'GET_SCORE';
+const SET_TIMER = 'SET_TIMER';
+
 
 const fetchToken = (payload) => ({
   type: GET_TOKEN,
@@ -15,4 +17,10 @@ const getScore = (payload) => ({
   payload,
 });
 
-export { fetchToken, getTimer, getScore, GET_TOKEN, GET_TIMER, GET_SCORE };
+const setTimer = (payload) => ({
+  type: SET_TIMER,
+  payload,
+});
+
+export { fetchToken, getTimer, getScore, setTimer,
+  GET_TOKEN, GET_TIMER, GET_SCORE, SET_TIMER };

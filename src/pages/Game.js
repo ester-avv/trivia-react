@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Questions from '../Components/Questions';
 
-export default class Game extends Component {
+class Game extends Component {
 /*   fetchQuestions = async () => {
     const { data } = this.props;
     const urlToken = `opentdb.com/api.php?amount=5&token=${data.token}`;
@@ -17,9 +16,6 @@ export default class Game extends Component {
       <div>
         <Header />
         <Questions />
-        <button type="button">
-          <Link to="/feedback"> FEEDBACK </Link>
-        </button>
       </div>
     );
   }
@@ -29,4 +25,4 @@ function mapStateToProps(state) {
   return state.dataReducer.data;
 }
 
-connect(mapStateToProps)(Game);
+export default connect(mapStateToProps)(Game);

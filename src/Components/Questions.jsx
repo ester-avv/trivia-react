@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Button from './Button';
 import Timer from './Timer';
-import { getScore } from '../redux/actions/index';
+
+import { getScore, setTimer } from '../redux/actions/index';
+
 
 class Questions extends Component {
   state = {
@@ -18,7 +21,6 @@ class Questions extends Component {
   }
 
   addPlacar = (target) => {
-    console.log(target)
     const { questions, index, placar } = this.state;
     const { timer, dispatch } = this.props;
     let dificuldade;
@@ -42,6 +44,8 @@ class Questions extends Component {
   };
 
   changeStyleOptions = ({ target }) => {
+    const { dispatch } = this.props;
+    const zero = 0;
     const testId = target.parentElement.childNodes;
     testId.forEach((element) => {
       const attr = element.getAttribute('data-testid');
@@ -52,6 +56,20 @@ class Questions extends Component {
       }
     });
     this.addPlacar(target);
+    dispatch(setTimer(zero));
+  };
+
+  handleClickNext = () => {
+    const { dispatch, history } = this.props;
+    console.log(this.props);
+    const { index } = this.state;
+    const four = 4;
+    const seconds = 30;
+    this.setState({ index: index + 1 });
+    dispatch(setTimer(seconds));
+    if (index === four) {
+      history.push('/feedback');
+    }
   };
 
   fetchQuestions = async () => {
@@ -68,7 +86,7 @@ class Questions extends Component {
   render() {
     const { questions, index } = this.state;
     const { timer } = this.props;
-    const resp = questions.length !== 0 && [
+    const resp = (questions.length !== 0) && [
       ...questions[index].incorrect_answers,
       questions[index].correct_answer,
     ];
@@ -79,7 +97,29 @@ class Questions extends Component {
           <div>
             <p data-testid="question-category">{questions[index].category}</p>
             <p data-testid="question-text">{questions[index].question}</p>
-            { timer === 0 ? <p>Próxima pergunta</p> : <Timer /> }
+            { timer === 0
+              ? (
+                (index === 4)
+                  ? (
+                    <Link to="/feedback">
+                      <button
+                        type="button"
+                        data-testid="btn-next"
+                        onClick={ this.handleClickNext }
+                      >
+                        Next
+                      </button>
+                    </Link>
+                  ) : <button
+                    type="button"
+                    data-testid="btn-next"
+                    onClick={ this.handleClickNext }
+                  >
+                    Next
+                  </button>
+              ) : (
+                <Timer />
+              )}
             <div data-testid="answer-options">
               {resp.map((element, indexAns) => (
                 <Button

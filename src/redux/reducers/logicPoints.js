@@ -1,4 +1,4 @@
-import { GET_TIMER } from '../actions/index';
+import { GET_TIMER, SET_TIMER } from '../actions/index';
 
 const INITIAL_STATE = {
   timer: 30,
@@ -7,6 +7,8 @@ const INITIAL_STATE = {
 const logicPoints = (store = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_TIMER:
+    return { ...store, timer: action.payload };
+  case SET_TIMER:
     return { ...store, timer: action.payload };
   default:
     return store;
