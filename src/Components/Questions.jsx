@@ -13,6 +13,18 @@ class Questions extends Component {
     await this.fetchQuestions();
   }
 
+  changeStyleOptions = ({ target }) => {
+    const testId = target.parentElement.childNodes;
+    testId.forEach((element) => {
+      const attr = element.getAttribute('data-testid');
+      if (attr === 'correct-answer') {
+        element.style.border = '3px solid rgb(6, 240, 15)';
+      } else {
+        element.style.border = '3px solid red';
+      }
+    });
+  };
+
   fetchQuestions = async () => {
     const { data } = this.props;
     const urlToken = `https://opentdb.com/api.php?amount=5&token=${data.token}`;
@@ -49,6 +61,7 @@ class Questions extends Component {
                       .correct_answer ? 'correct-answer'
                       : `wrong-answer-${indexAns}`
                   }
+                  onClick={ this.changeStyleOptions }
                 />)).sort(() => Math.random() - magicNumber)}
             </div>
           </div>
