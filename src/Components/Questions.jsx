@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import Timer from './Timer';
 
 class Questions extends Component {
   state = {
@@ -38,6 +39,7 @@ class Questions extends Component {
 
   render() {
     const { questions, index } = this.state;
+    const { timer } = this.props;
     const resp = questions.length !== 0 && [
       ...questions[index].incorrect_answers,
       questions[index].correct_answer,
@@ -50,10 +52,12 @@ class Questions extends Component {
           <div>
             <p data-testid="question-category">{questions[index].category}</p>
             <p data-testid="question-text">{questions[index].question}</p>
+            { timer === 0 ? <p>Próxima pergunta</p> : <Timer /> }
             <div data-testid="answer-options">
               {resp.map((element, indexAns) => (
                 <Button
                   key={ indexAns }
+                  isDisabled={ timer === 0 }
                   text={ element === questions[index]
                     .correct_answer ? questions[index].correct_answer : element }
                   dataTestId={
@@ -72,10 +76,12 @@ class Questions extends Component {
 }
 const mapStateToProps = (state) => ({
   data: state.dataReducer.data,
+  timer: state.logicPoints.timer,
 });
 
 Questions.propTypes = ({
   data: PropTypes.shape.isRequired,
+  timer: PropTypes.number.isRequired,
 });
 
 export default connect(mapStateToProps)(Questions);
