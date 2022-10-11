@@ -7,7 +7,6 @@ import Timer from './Timer';
 
 import { getScore, setTimer } from '../redux/actions/index';
 
-
 class Questions extends Component {
   state = {
     questions: [],
