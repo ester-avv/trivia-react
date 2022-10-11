@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    console.log(this.props);
     const { name, urlGravatar, score } = this.props;
     return (
       <div>

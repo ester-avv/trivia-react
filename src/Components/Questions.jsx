@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from './Button';
 import Timer from './Timer';
+
 import { getScore, setTimer } from '../redux/actions/index';
+
 
 class Questions extends Component {
   state = {
