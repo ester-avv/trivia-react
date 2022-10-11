@@ -1,14 +1,15 @@
-import { GET_TOKEN } from '../actions/index';
+import { GET_TOKEN, GET_SCORE } from '../actions/index';
 
 const INITIAL_STATE = {
   data: {},
   name: '',
   email: '',
   urlGravatar: '',
-  placar: 0,
+  score: 0,
 };
 
 function dataReducer(state = INITIAL_STATE, action) {
+  const ten = 10;
   switch (action.type) {
   case GET_TOKEN:
     return {
@@ -18,7 +19,11 @@ function dataReducer(state = INITIAL_STATE, action) {
       email: action.payload.email,
       urlGravatar: action.payload.urlGravatar,
     };
-
+  case GET_SCORE:
+    console.log(action.payload);
+    return {
+      ...state,
+      score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)) };
   default:
     return state;
   }
