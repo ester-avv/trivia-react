@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class Feedback extends Component {
+class Feedback extends Component {
   render() {
+    const three = 3;
+    console.log('props', this.props);
     const { name, urlGravatar, placar } = this.props;
     return (
       <header>
-        <img data-testid="header-player-name" src={ urlGravatar } alt={ name } />
-        <h3 data-testid="header-player-name">
-          {' '}
+        <img data-testid="header-profile-picture" src={ urlGravatar } alt={ name } />
+        <h3 data-testid="header-player-name" id="name">
           {name}
-          {' '}
         </h3>
-        <h3 data-testid="header-score">
-          {' '}
+        <h3 data-testid="header-score" id="placar">
           {placar}
-          {' '}
         </h3>
+        { (placar < three) ? <p data-testid="feedback-text">Could be better...</p>
+          : <p data-testid="feedback-text">Well Done!</p>}
       </header>
     );
   }
@@ -36,4 +37,4 @@ Feedback.propTypes = {
   placar: PropTypes.number.isRequired,
 };
 
-connect(mapStateToProps)(Feedback);
+export default connect(mapStateToProps)(Feedback);
