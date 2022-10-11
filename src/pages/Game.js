@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Questions from '../Components/Questions';
 
@@ -16,6 +17,9 @@ export default class Game extends Component {
       <div>
         <Header />
         <Questions />
+        <button type="button">
+          <Link to="/feedback"> FEEDBACK </Link>
+        </button>
       </div>
     );
   }
