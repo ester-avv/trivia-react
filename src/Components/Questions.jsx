@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import Timer from './Timer';
+import { getScore } from '../redux/actions/index';
 
 class Questions extends Component {
   state = {
@@ -17,8 +18,9 @@ class Questions extends Component {
   }
 
   addPlacar = (target) => {
-    const { questions, index } = this.state;
-    const { timer } = this.props;
+    console.log(target)
+    const { questions, index, placar } = this.state;
+    const { timer, dispatch } = this.props;
     let dificuldade;
     const one = 1;
     const two = 2;
@@ -34,11 +36,8 @@ class Questions extends Component {
 
     const testId = target.getAttribute('data-testid');
     const CORRECT = 'correct-answer';
-    const ten = 10;
     if (testId === CORRECT) {
-      this.setState((prevState) => ({
-        placar: prevState.placar + (ten + (timer * dificuldade)),
-      }));
+      dispatch(getScore({ dificuldade, timer }));
     }
   };
 
