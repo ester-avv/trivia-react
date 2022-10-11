@@ -19,4 +19,5 @@ export default class Button extends Component {
 Button.propTypes = ({
   dataTestId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 });
