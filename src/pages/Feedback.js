@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class Feedback extends Component {
+class Feedback extends Component {
   render() {
     const { name, urlGravatar, placar } = this.props;
+    console.log(this.props);
     return (
       <header>
-        <img data-testid="header-player-name" src={ urlGravatar } alt={ name } />
+        <img data-testid="header-player-picture" src={ urlGravatar } alt={ name } />
         <h3 data-testid="header-player-name">
           {' '}
           {name}
@@ -36,4 +38,4 @@ Feedback.propTypes = {
   placar: PropTypes.number.isRequired,
 };
 
-connect(mapStateToProps)(Feedback);
+export default connect(mapStateToProps)(Feedback);
