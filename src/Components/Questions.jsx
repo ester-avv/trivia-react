@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from './Button';
 import Timer from './Timer';
+
 import { getScore, setTimer } from '../redux/actions/index';
+
 
 class Questions extends Component {
   state = {
@@ -19,7 +21,6 @@ class Questions extends Component {
   }
 
   addPlacar = (target) => {
-    console.log(target);
     const { questions, index, placar } = this.state;
     const { timer, dispatch } = this.props;
     let dificuldade;
