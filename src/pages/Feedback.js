@@ -25,9 +25,9 @@ class Feedback extends Component {
 
 function mapStateToProps(state) {
   return {
-    name: state.dataReducer.name,
-    urlGravatar: state.dataReducer.urlGravatar,
-    score: state.dataReducer.score,
+    name: state.player.name,
+    urlGravatar: state.player.urlGravatar,
+    score: state.player.score,
   };
 }
 

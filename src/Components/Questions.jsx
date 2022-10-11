@@ -12,8 +12,9 @@ class Questions extends Component {
   state = {
     questions: [],
     index: 0,
-    placar: 0,
-    isDisabled: false,
+    correctAnswer: 'correct-answer',
+    // placar: 0,
+    // isDisabled: false,
   };
 
   async componentDidMount() {
@@ -21,7 +22,8 @@ class Questions extends Component {
   }
 
   addPlacar = (target) => {
-    const { questions, index, placar } = this.state;
+    console.log(target);
+    const { questions, index, correctAnswer } = this.state;
     const { timer, dispatch } = this.props;
     let dificuldade;
     const one = 1;
@@ -37,19 +39,19 @@ class Questions extends Component {
     }
 
     const testId = target.getAttribute('data-testid');
-    const CORRECT = 'correct-answer';
-    if (testId === CORRECT) {
+    if (testId === correctAnswer) {
       dispatch(getScore({ dificuldade, timer }));
     }
   };
 
   changeStyleOptions = ({ target }) => {
     const { dispatch } = this.props;
+    const { correctAnswer } = this.state;
     const zero = 0;
     const testId = target.parentElement.childNodes;
     testId.forEach((element) => {
       const attr = element.getAttribute('data-testid');
-      if (attr === 'correct-answer') {
+      if (attr === correctAnswer) {
         element.style.border = '3px solid rgb(6, 240, 15)';
       } else {
         element.style.border = '3px solid red';
@@ -60,16 +62,12 @@ class Questions extends Component {
   };
 
   handleClickNext = () => {
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
     console.log(this.props);
     const { index } = this.state;
-    const four = 4;
     const seconds = 30;
     this.setState({ index: index + 1 });
     dispatch(setTimer(seconds));
-    if (index === four) {
-      history.push('/feedback');
-    }
   };
 
   fetchQuestions = async () => {
@@ -84,13 +82,14 @@ class Questions extends Component {
   };
 
   render() {
-    const { questions, index } = this.state;
+    const { questions, index, correctAnswer } = this.state;
     const { timer } = this.props;
     const resp = (questions.length !== 0) && [
       ...questions[index].incorrect_answers,
       questions[index].correct_answer,
     ];
     const magicNumber = 0.5;
+    const four = 4;
     return (
       <div>
         {questions.length !== 0 && (
@@ -99,24 +98,15 @@ class Questions extends Component {
             <p data-testid="question-text">{questions[index].question}</p>
             { timer === 0
               ? (
-                (index === 4)
-                  ? (
-                    <Link to="/feedback">
-                      <button
-                        type="button"
-                        data-testid="btn-next"
-                        onClick={ this.handleClickNext }
-                      >
-                        Next
-                      </button>
-                    </Link>
-                  ) : <button
+                <Link to={ (index === four) ? '/feedback' : '/game' }>
+                  <button
                     type="button"
                     data-testid="btn-next"
                     onClick={ this.handleClickNext }
                   >
                     Next
                   </button>
+                </Link>
               ) : (
                 <Timer />
               )}
@@ -129,7 +119,7 @@ class Questions extends Component {
                     .correct_answer ? questions[index].correct_answer : element }
                   dataTestId={
                     element === questions[index]
-                      .correct_answer ? 'correct-answer'
+                      .correct_answer ? correctAnswer
                       : `wrong-answer-${indexAns}`
                   }
                   onClick={ this.changeStyleOptions }
@@ -142,13 +132,14 @@ class Questions extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  data: state.dataReducer.data,
+  data: state.player.data,
   timer: state.logicPoints.timer,
 });
 
 Questions.propTypes = ({
   data: PropTypes.shape.isRequired,
   timer: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
 });
 
 export default connect(mapStateToProps)(Questions);

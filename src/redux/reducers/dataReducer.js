@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   score: 0,
 };
 
-function dataReducer(state = INITIAL_STATE, action) {
+function player(state = INITIAL_STATE, action) {
   const ten = 10;
   switch (action.type) {
   case GET_TOKEN:
@@ -20,7 +20,6 @@ function dataReducer(state = INITIAL_STATE, action) {
       urlGravatar: action.payload.urlGravatar,
     };
   case GET_SCORE:
-    console.log(action.payload);
     return {
       ...state,
       score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)) };
@@ -29,4 +28,4 @@ function dataReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default dataReducer;
+export default player;

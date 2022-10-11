@@ -16,12 +16,13 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.dataReducer;
+  return state.player;
 }
 
 Header.propTypes = ({
   name: PropTypes.string.isRequired,
   urlGravatar: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 });
 
 export default connect(mapStateToProps)(Header);

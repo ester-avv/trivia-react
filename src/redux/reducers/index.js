@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import dataReducer from './dataReducer';
+import player from './dataReducer';
 import logicPoints from './logicPoints';
 
 const rootReducer = combineReducers({
-  dataReducer,
+  player,
   logicPoints,
 });
 
