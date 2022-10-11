@@ -62,13 +62,9 @@ class Questions extends Component {
     const { dispatch, history } = this.props;
     console.log(this.props);
     const { index } = this.state;
-    const four = 4;
     const seconds = 30;
     this.setState({ index: index + 1 });
     dispatch(setTimer(seconds));
-    if (index === four) {
-      history.push('/feedback');
-    }
   };
 
   fetchQuestions = async () => {
@@ -90,6 +86,7 @@ class Questions extends Component {
       questions[index].correct_answer,
     ];
     const magicNumber = 0.5;
+    const four = 4;
     return (
       <div>
         {questions.length !== 0 && (
@@ -98,24 +95,15 @@ class Questions extends Component {
             <p data-testid="question-text">{questions[index].question}</p>
             { timer === 0
               ? (
-                (index === 4)
-                  ? (
-                    <Link to="/feedback">
-                      <button
-                        type="button"
-                        data-testid="btn-next"
-                        onClick={ this.handleClickNext }
-                      >
-                        Next
-                      </button>
-                    </Link>
-                  ) : <button
+                <Link to={ (index === four) ? '/feedback' : '/game' }>
+                  <button
                     type="button"
                     data-testid="btn-next"
                     onClick={ this.handleClickNext }
                   >
                     Next
                   </button>
+                </Link>
               ) : (
                 <Timer />
               )}
@@ -141,7 +129,7 @@ class Questions extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  data: state.dataReducer.data,
+  data: state.player.data,
   timer: state.logicPoints.timer,
 });
 

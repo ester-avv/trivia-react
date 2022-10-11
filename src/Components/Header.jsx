@@ -17,7 +17,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.dataReducer;
+  return state.player;
 }
 
 Header.propTypes = ({

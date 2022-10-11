@@ -22,7 +22,7 @@ class Game extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.dataReducer.data;
+  return state.player.data;
 }
 
 export default connect(mapStateToProps)(Game);
