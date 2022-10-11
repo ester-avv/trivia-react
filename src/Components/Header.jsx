@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { name, urlGravatar } = this.props;
+    console.log(this.props);
+    const { name, urlGravatar, score } = this.props;
     return (
       <div>
         <img src={ urlGravatar } alt="avatar" data-testid="header-profile-picture" />
         <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">0</p>
+        <p data-testid="header-score">{ score }</p>
       </div>
     );
   }
