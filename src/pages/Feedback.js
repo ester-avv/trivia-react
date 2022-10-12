@@ -4,10 +4,36 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Feedback extends Component {
+  saveToLocalStorage = () => {
+    let ranking;
+    const storageRankingList = JSON.parse(localStorage.getItem('ranking'));
+    if (storageRankingList === null) {
+      ranking = [];
+    } else {
+      ranking = [...storageRankingList];
+    }
+    const { name, urlGravatar, score } = this.props;
+    const playerToAdd = { name, urlGravatar, score };
+    ranking.push(playerToAdd);
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+  };
+
+  sortLocalStorage = () => {
+    const rankingList = JSON.parse(localStorage.getItem('ranking'));
+    rankingList.sort((a, b) => {
+      const minusOne = -1;
+      if (a.score < b.score) {
+        return 1;
+      } return minusOne;
+    });
+    localStorage.setItem('ranking', JSON.stringify(rankingList));
+  };
+
   render() {
+    this.saveToLocalStorage();
+    this.sortLocalStorage();
     const three = 3;
     const { name, urlGravatar, score, assertions } = this.props;
-    console.log(this.props);
     return (
       <header>
         <img data-testid="header-profile-picture" src={ urlGravatar } alt={ name } />

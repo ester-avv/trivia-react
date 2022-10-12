@@ -1,4 +1,4 @@
-import { GET_TOKEN, GET_SCORE } from '../actions/index';
+import { GET_TOKEN, GET_SCORE, CLEAR_SCORE } from '../actions/index';
 
 const INITIAL_STATE = {
   data: {},
@@ -25,6 +25,12 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)),
       assertions: state.assertions + 1,
+    };
+  case CLEAR_SCORE:
+    return {
+      ...state,
+      score: 0,
+      assertions: 0,
     };
   default:
     return state;

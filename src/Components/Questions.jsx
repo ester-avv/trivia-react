@@ -21,7 +21,6 @@ class Questions extends Component {
   }
 
   addPlacar = (target) => {
-    console.log(target);
     const { questions, index, correctAnswer } = this.state;
     const { timer, dispatch } = this.props;
     let dificuldade;
@@ -62,7 +61,6 @@ class Questions extends Component {
 
   handleClickNext = () => {
     const { dispatch } = this.props;
-    console.log(this.props);
     const { index } = this.state;
     const seconds = 30;
     this.setState({ index: index + 1 });
