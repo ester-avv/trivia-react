@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   email: '',
   urlGravatar: '',
   score: 0,
+  assertions: 0,
 };
 
 function player(state = INITIAL_STATE, action) {
@@ -22,7 +23,9 @@ function player(state = INITIAL_STATE, action) {
   case GET_SCORE:
     return {
       ...state,
-      score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)) };
+      score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)),
+      assertions: state.assertions + 1,
+    };
   default:
     return state;
   }
