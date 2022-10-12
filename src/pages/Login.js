@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
-import { fetchToken } from '../redux/actions';
+import { actClearScore, fetchToken } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -38,7 +38,13 @@ class Login extends Component {
     history.push('/game');
   };
 
+  clearScore = () => {
+    const { dispatch } = this.props;
+    dispatch(actClearScore());
+  };
+
   render() {
+    this.clearScore();
     const { history } = this.props;
     return (
       <form onChange={ this.handleChange }>

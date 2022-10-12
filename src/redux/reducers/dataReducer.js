@@ -1,4 +1,4 @@
-import { GET_TOKEN, GET_SCORE } from '../actions/index';
+import { GET_TOKEN, GET_SCORE, CLEAR_SCORE } from '../actions/index';
 
 const INITIAL_STATE = {
   data: {},
@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   email: '',
   urlGravatar: '',
   score: 0,
+  assertions: 0,
 };
 
 function player(state = INITIAL_STATE, action) {
@@ -22,7 +23,15 @@ function player(state = INITIAL_STATE, action) {
   case GET_SCORE:
     return {
       ...state,
-      score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)) };
+      score: state.score + (ten + (action.payload.timer * action.payload.dificuldade)),
+      assertions: state.assertions + 1,
+    };
+  case CLEAR_SCORE:
+    return {
+      ...state,
+      score: 0,
+      assertions: 0,
+    };
   default:
     return state;
   }
