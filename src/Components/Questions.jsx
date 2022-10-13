@@ -12,6 +12,7 @@ class Questions extends Component {
     questions: [],
     index: 0,
     correctAnswer: 'correct-answer',
+    attr: 'data-testid',
     // placar: 0,
     // isDisabled: false,
   };
@@ -21,7 +22,7 @@ class Questions extends Component {
   }
 
   addPlacar = (target) => {
-    const { questions, index, correctAnswer } = this.state;
+    const { questions, index, correctAnswer, attr } = this.state;
     const { timer, dispatch } = this.props;
     let dificuldade;
     const one = 1;
@@ -36,7 +37,7 @@ class Questions extends Component {
       dificuldade = three;
     }
 
-    const testId = target.getAttribute('data-testid');
+    const testId = target.getAttribute(attr);
     if (testId === correctAnswer) {
       dispatch(getScore({ dificuldade, timer }));
     }
@@ -59,12 +60,22 @@ class Questions extends Component {
     dispatch(setTimer(zero));
   };
 
-  handleClickNext = () => {
+  handleClickNext = ({ target }) => {
     const { dispatch } = this.props;
-    const { index } = this.state;
+    const { index, correctAnswer, attr } = this.state;
     const seconds = 30;
     this.setState({ index: index + 1 });
     dispatch(setTimer(seconds));
+    const testId = target.parentElement.nextElementSibling;
+
+    testId.childNodes.forEach((element) => {
+      const attrElement = element.getAttribute(attr);
+      if (attrElement === correctAnswer) {
+        element.style.border = '1px solid black';
+      } else {
+        element.style.border = '1px solid black';
+      }
+    });
   };
 
   fetchQuestions = async () => {
@@ -85,6 +96,7 @@ class Questions extends Component {
       ...questions[index].incorrect_answers,
       questions[index].correct_answer,
     ];
+
     const magicNumber = 0.5;
     const four = 4;
     return (
