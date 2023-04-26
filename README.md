@@ -1,10 +1,8 @@
 # :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Essa é aplicação de um jogo de perguntas e respostas baseado no jogo **Trivia** utilizando _React e Redux_.
+O front-end dessa aplicação foi desenvolvido por:
+Ester Verza
+Romulo Silva
+Bruno Serpa Penna
+Mauricio de Oliveira 
+Victor Flores
